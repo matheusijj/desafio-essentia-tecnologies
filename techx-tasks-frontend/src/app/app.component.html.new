@@ -1,0 +1,25 @@
+<header class="header">
+  <div class="container">
+    <div class="logo-container">
+      <h1>TechX - Tasks</h1>
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a routerLink="/tasks" routerLinkActive="active">Tarefas</a></li>
+        <li><a routerLink="/tasks/new" routerLinkActive="active">Nova Tarefa</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>Sistema de Gerenciamento de Tarefas</p>
+  </div>
+</footer>
