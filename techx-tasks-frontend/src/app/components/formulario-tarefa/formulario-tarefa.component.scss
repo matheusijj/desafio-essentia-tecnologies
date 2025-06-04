@@ -1,0 +1,167 @@
+.task-form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .btn-back {
+    display: flex;
+    align-items: center;
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 500;
+    
+    .material-icons {
+      margin-right: 4px;
+      font-size: 20px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.task-form {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #202124;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #1a73e8;
+      outline: none;
+    }
+
+    &.is-invalid {
+      border-color: #ea4335;
+    }
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%235F6368' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+  }
+
+  .error-message {
+    color: #ea4335;
+    font-size: 12px;
+    margin-top: 4px;
+
+    span {
+      display: block;
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  
+  .form-group {
+    flex: 1;
+  }
+}
+
+.checkbox-group {
+  margin-top: 10px;
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    
+    input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+    }
+    
+    label {
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+
+  button {
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: none;
+  }
+
+  .btn-cancel {
+    background-color: #f1f3f4;
+    color: #5f6368;
+
+    &:hover {
+      background-color: #e8eaed;
+    }
+  }
+
+  .btn-save {
+    background-color: #1a73e8;
+    color: white;
+
+    &:hover {
+      background-color: #1765cc;
+    }
+  }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

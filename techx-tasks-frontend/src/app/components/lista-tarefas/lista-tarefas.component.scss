@@ -1,0 +1,259 @@
+.tasks-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .btn-add-task {
+    display: flex;
+    align-items: center;
+    background-color: #4285f4;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #3367d6;
+    }
+
+    .material-icons {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+  }
+}
+
+.tasks-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .status-filter {
+    display: flex;
+    gap: 10px;
+
+    .filter-btn {
+      padding: 6px 12px;
+      border: 1px solid #dadce0;
+      background: none;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: #f1f3f4;
+      }
+
+      &.active {
+        background-color: #e8f0fe;
+        color: #1a73e8;
+        border-color: #d2e3fc;
+      }
+    }
+  }
+
+  .search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 300px;
+    
+    .material-icons {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5f6368;
+      font-size: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 8px 8px 36px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: #4285f4;
+      }
+    }
+  }
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  background-color: white;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  .task-checkbox {
+    margin-right: 16px;
+    padding-top: 4px;
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+  }
+
+  .task-content {
+    flex-grow: 1;
+    margin-right: 16px;
+
+    &.completed {
+      .task-title, .task-description {
+        text-decoration: line-through;
+        color: #80868b;
+      }
+    }
+
+    .task-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 8px;
+      text-decoration: none;
+
+      &:hover {
+        color: #1a73e8;
+      }
+    }
+
+    .task-description {
+      font-size: 14px;
+      color: #5f6368;
+      margin-bottom: 8px;
+      white-space: pre-line;
+    }
+
+    .task-metadata {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: #5f6368;
+
+      .task-date, .task-priority {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .material-icons {
+        font-size: 16px;
+      }
+
+      .task-priority {
+        &.priority-baixa {
+          color: #34a853;
+        }
+        &.priority-media {
+          color: #fbbc05;
+        }
+        &.priority-alta {
+          color: #ea4335;
+        }
+      }
+    }
+  }
+
+  .task-actions {
+    display: flex;
+    gap: 8px;
+
+    .btn-action {
+      background: none;
+      border: none;
+      color: #5f6368;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f1f3f4;
+        color: #202124;
+      }
+
+      .material-icons {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.no-tasks {
+  padding: 40px 0;
+
+  .empty-state {
+    text-align: center;
+    color: #5f6368;
+
+    .material-icons {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    .btn-clear-filters {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #1765cc;
+      }
+    }
+  }
+}

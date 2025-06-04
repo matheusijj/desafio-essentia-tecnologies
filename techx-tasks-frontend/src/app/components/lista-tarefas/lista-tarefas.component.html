@@ -1,0 +1,91 @@
+<div class="tasks-container">
+  <div class="tasks-header">
+    <h1>Minhas Tarefas</h1>
+    <a routerLink="/tasks/new" class="btn-add-task">
+      <span class="material-icons">add</span>
+      Nova Tarefa
+    </a>
+  </div>
+
+  <div class="tasks-filters">
+    <div class="search-box">
+      <span class="material-icons">search</span>
+      <input 
+        type="text" 
+        placeholder="Buscar tarefas..." 
+        (input)="buscar($any($event.target).value)">
+    </div>
+    <div class="status-filter">
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroStatus === 'todas'"
+        (click)="filtrarPorStatus('todas')">
+        Todas
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroStatus === 'pendentes'"
+        (click)="filtrarPorStatus('pendentes')">
+        Pendentes
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="filtroStatus === 'concluidas'"
+        (click)="filtrarPorStatus('concluidas')">
+        Concluídas
+      </button>
+    </div>
+  </div>
+
+  <div class="tasks-list" *ngIf="tarefasFiltradas.length > 0">
+    <div class="task-item" *ngFor="let tarefa of tarefasFiltradas">
+      <div class="task-checkbox">
+        <input 
+          type="checkbox" 
+          [checked]="tarefa.concluida"
+          (change)="alternarStatusTarefa(tarefa)">
+      </div>
+      <div class="task-content" [class.completed]="tarefa.concluida">
+        <a [routerLink]="['/tasks', tarefa.id]" class="task-title">{{ tarefa.titulo }}</a>
+        <p class="task-description" *ngIf="tarefa.descricao">{{ tarefa.descricao | slice:0:100 }}{{ tarefa.descricao.length > 100 ? '...' : '' }}</p>
+        <div class="task-metadata">
+          <div class="task-date" *ngIf="tarefa.dataVencimento">
+            <span class="material-icons">event</span>
+            <span>{{ tarefa.dataVencimento | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="task-priority" *ngIf="tarefa.prioridade" [ngClass]="'priority-' + tarefa.prioridade">
+            <span *ngIf="tarefa.prioridade === 'baixa'">Baixa</span>
+            <span *ngIf="tarefa.prioridade === 'media'">Média</span>
+            <span *ngIf="tarefa.prioridade === 'alta'">Alta</span>
+          </div>
+        </div>
+      </div>
+      <div class="task-actions">
+        <a [routerLink]="['/tasks', tarefa.id]" class="btn-action">
+          <span class="material-icons">visibility</span>
+        </a>
+        <a [routerLink]="['/tasks', tarefa.id, 'edit']" class="btn-action">
+          <span class="material-icons">edit</span>
+        </a>
+        <a href="javascript:void(0)" class="btn-action" (click)="excluirTarefa(tarefa.id!)">
+          <span class="material-icons">delete</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-tasks" *ngIf="tarefasFiltradas.length === 0">
+    <div class="empty-state">
+      <span class="material-icons">assignment</span>
+      <h3>Nenhuma tarefa encontrada</h3>
+      <p *ngIf="tarefas.length === 0">Você ainda não criou nenhuma tarefa.</p>
+      <p *ngIf="tarefas.length > 0">Nenhuma tarefa corresponde aos filtros aplicados.</p>
+      <button 
+        *ngIf="tarefas.length > 0 && (filtroStatus !== 'todas' || termoBusca !== '')" 
+        class="btn-clear-filters" 
+        (click)="filtrarPorStatus('todas'); buscar('')">
+        Limpar filtros
+      </button>
+    </div>
+  </div>
+</div>

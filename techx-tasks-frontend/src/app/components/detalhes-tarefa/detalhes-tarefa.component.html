@@ -1,0 +1,83 @@
+<div class="task-details-container">
+  <div class="details-header">
+    <h2>Detalhes da Tarefa</h2>
+    <a routerLink="/tasks" class="btn-back">
+      <span class="material-icons">arrow_back</span>
+      Voltar para lista
+    </a>
+  </div>
+
+  <div class="task-card" *ngIf="tarefa">
+    <div class="task-header">
+      <div class="task-title">
+        <h3>{{ tarefa.titulo }}</h3>
+        <div class="task-status" [ngClass]="{'completed': tarefa.concluida, 'pending': !tarefa.concluida}">
+          {{ tarefa.concluida ? 'Concluída' : 'Pendente' }}
+        </div>
+      </div>
+      <div class="task-priority" *ngIf="tarefa.prioridade" [ngClass]="'priority-' + tarefa.prioridade">
+        {{ obterLabelPrioridade(tarefa.prioridade) }}
+      </div>
+    </div>
+
+    <div class="task-body">
+      <div class="task-description" *ngIf="tarefa.descricao">
+        <h4>Descrição</h4>
+        <p>{{ tarefa.descricao }}</p>
+      </div>
+
+      <div class="task-metadata">
+        <div class="metadata-item" *ngIf="tarefa.dataVencimento">
+          <span class="material-icons">event</span>
+          <div>
+            <span class="label">Data de vencimento</span>
+            <span class="value">{{ tarefa.dataVencimento | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+        
+        <div class="metadata-item" *ngIf="tarefa.dataCriacao">
+          <span class="material-icons">add_circle_outline</span>
+          <div>
+            <span class="label">Criada em</span>
+            <span class="value">{{ tarefa.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+        
+        <div class="metadata-item" *ngIf="tarefa.dataAtualizacao">
+          <span class="material-icons">update</span>
+          <div>
+            <span class="label">Atualizada em</span>
+            <span class="value">{{ tarefa.dataAtualizacao | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-actions">
+      <button class="btn-action btn-delete" (click)="excluirTarefa()">
+        <span class="material-icons">delete</span>
+        Excluir
+      </button>
+      <button class="btn-action btn-toggle-status" (click)="alternarStatusTarefa()">
+        <span class="material-icons">{{ tarefa.concluida ? 'replay' : 'check_circle' }}</span>
+        {{ tarefa.concluida ? 'Marcar como pendente' : 'Marcar como concluída' }}
+      </button>
+      <button class="btn-action btn-edit" (click)="editarTarefa()">
+        <span class="material-icons">edit</span>
+        Editar
+      </button>
+    </div>
+  </div>
+
+  <div class="task-not-found" *ngIf="!tarefa && !carregando">
+    <span class="material-icons">error_outline</span>
+    <h3>Tarefa não encontrada</h3>
+    <p>A tarefa que você está procurando não existe ou foi removida.</p>
+    <a routerLink="/tasks" class="btn-back-to-list">Voltar para lista de tarefas</a>
+  </div>
+
+  <div class="loading-state" *ngIf="carregando">
+    <div class="spinner"></div>
+    <p>Carregando detalhes da tarefa...</p>
+  </div>
+</div>

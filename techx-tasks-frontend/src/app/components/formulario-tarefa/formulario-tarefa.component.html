@@ -1,0 +1,85 @@
+<div class="task-form-container">
+  <div class="form-header">
+    <h2>{{ modoEdicao ? 'Editar Tarefa' : 'Nova Tarefa' }}</h2>
+    <a routerLink="/tasks" class="btn-back">
+      <span class="material-icons">arrow_back</span>
+      Voltar para lista
+    </a>
+  </div>
+
+  <form [formGroup]="formularioTarefa" (ngSubmit)="aoEnviar()" class="task-form">
+    <div class="form-group">
+      <label for="titulo">Título *</label>
+      <input 
+        type="text" 
+        id="titulo" 
+        formControlName="titulo" 
+        placeholder="Digite o título da tarefa"
+        class="form-control"
+        [class.is-invalid]="formularioEnviado && f['titulo'].errors">
+      <div class="error-message" *ngIf="formularioEnviado && f['titulo'].errors">
+        <span *ngIf="f['titulo'].errors && f['titulo'].errors['required']">O título é obrigatório.</span>
+        <span *ngIf="f['titulo'].errors && f['titulo'].errors['minlength']">O título deve ter pelo menos 3 caracteres.</span>
+        <span *ngIf="f['titulo'].errors && f['titulo'].errors['maxlength']">O título deve ter no máximo 100 caracteres.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <textarea 
+        id="descricao" 
+        formControlName="descricao" 
+        placeholder="Digite uma descrição detalhada da tarefa"
+        class="form-control"
+        rows="4"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="prioridade">Prioridade</label>
+        <select 
+          id="prioridade" 
+          formControlName="prioridade"
+          class="form-control">
+          <option value="">Selecione a prioridade</option>
+          <option value="baixa">Baixa</option>
+          <option value="media">Média</option>
+          <option value="alta">Alta</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dataVencimento">Data de vencimento</label>
+        <input 
+          type="date" 
+          id="dataVencimento" 
+          formControlName="dataVencimento"
+          class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <div class="checkbox-container">
+        <input 
+          type="checkbox" 
+          id="concluida" 
+          formControlName="concluida">
+        <label for="concluida">Tarefa concluída</label>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="button" 
+        class="btn-cancel"
+        (click)="aoCancelar()">
+        Cancelar
+      </button>
+      <button 
+        type="submit" 
+        class="btn-save">
+        {{ modoEdicao ? 'Atualizar' : 'Salvar' }}
+      </button>
+    </div>
+  </form>
+</div>
