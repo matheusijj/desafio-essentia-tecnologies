@@ -72,6 +72,7 @@ export class DetalhesTarefaComponent implements OnInit {
           console.log('Status da tarefa atualizado com sucesso');
           if (this.tarefa) {
             this.tarefa.concluida = novoStatus;
+          }
           this.carregarDetalhesTarefa();
         },
         error: (erro) => {
