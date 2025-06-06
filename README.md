@@ -135,18 +135,53 @@ Após iniciar tanto o backend quanto o frontend, você pode acessar a aplicaçã
 ## Query para criação do banco de dados para teste:
 
  ```
- CREATE DATABASE IF NOT EXISTS techx_tarefas;
+CREATE DATABASE IF NOT EXISTS techx_tarefas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE techx_tarefas;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_usuario VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    primeiro_nome VARCHAR(50),
+    sobrenome VARCHAR(50),
+    ativo BOOLEAN DEFAULT TRUE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_nome_usuario (nome_usuario),
+    INDEX idx_email (email)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    descricao TEXT,
+    cor VARCHAR(7) DEFAULT '#3f51b5',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_nome (nome)
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS tarefas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
-    concluida TINYINT(1) DEFAULT 0,          
+    concluida BOOLEAN DEFAULT FALSE,
     data_vencimento DATE,
-    prioridade VARCHAR(10),                  
-    id_categoria INT                         
-);
+    prioridade ENUM('baixa', 'media', 'alta') DEFAULT 'media',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id_usuario INT,
+    id_categoria INT,
+    INDEX idx_titulo (titulo),
+    INDEX idx_concluida (concluida),
+    INDEX idx_data_vencimento (data_vencimento),
+    INDEX idx_prioridade (prioridade),
+    INDEX idx_usuario (id_usuario),
+    INDEX idx_categoria (id_categoria),
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
 
 ```
 ---
